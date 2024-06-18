@@ -33,9 +33,9 @@ function NavBarr() {
 
   return (
     <div>
-      <div className="flex justify-between px-6 py-4 text-white w-full sticky top-0 bg-blue-600 z-20">
+      <div className="select-none flex justify-between px-6 py-4 text-white w-full sticky top-0 bg-blue-600 z-20">
         <h1 className="text-xl font-bold">Wholesome Bites</h1>
-        <h1 className="cursor-pointer" id="menuButton"onClick={() => setIsMenuOpen(!isMenuOpen)}>MENU</h1>
+        <h1 className=" bg-gray-200 rounded-[30px] px-4 text-black py-1 cursor-pointer" id="menuButton"onClick={() => setIsMenuOpen(!isMenuOpen)}>MENU</h1>
 
 
       </div>
@@ -44,11 +44,11 @@ function NavBarr() {
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
-        className={`w-auto px-10 py-6 h-screen bg-gray-300 text-gray-900 md:text-8xl text-4xl ${isMenuOpen ? "flex" : "hidden"}`}>
+        className={`select-none w-auto px-10 py-6 h-screen bg-gray-300 text-gray-900 md:text-8xl text-4xl ${isMenuOpen ? "flex" : "hidden"}`}>
           <ul className="space-y-16 flex flex-col">
-            <li className="cursor-pointer">HOME</li>
-            <li className="cursor-pointer">ABOUT US</li>
-            <li className="cursor-pointer">CONTACT US</li>
+            <li className="cursor-pointer hover:text-gray-800 text-gray-600 duration-500">HOME</li>
+            <li className="cursor-pointer hover:text-gray-800 text-gray-600 duration-500">ABOUT US</li>
+            <li className="cursor-pointer hover:text-gray-800 text-gray-600 duration-500">CONTACT US</li>
           </ul>
         </motion.div>
         </AnimatePresence>

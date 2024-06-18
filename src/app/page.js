@@ -3,12 +3,14 @@
 import Cover from "@/components/Cover";
 import Landing from "@/components/Landing";
 import NavBarr from "@/components/NavBarr";
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useEffect, useState } from 'react';
 import gsap from "gsap";
 import About from "@/components/About";
 import ContactUs from "@/components/ContactUs";
 import Image from "next/image";
 import {useScroll, useTransform, motion} from "framer-motion"
+import Lenis from 'lenis'
+import useDimension from "@/useDimension";
 
 const images = [
   "1.jpg",
@@ -29,14 +31,18 @@ const images = [
 export default function Home() {
 
   const comp = useRef(null);
-  const container = useRef(null);
+  const container = useRef(null)
+  const {height} = useDimension();
 
   const {scrollYProgress} = useScroll({
     target: container,
     offset: ["start end", "end start"]
   })
 
-  const y = useTransform(scrollYProgress, [0,1], [0,700])
+  const y = useTransform(scrollYProgress, [0, 1], [0, height * 2])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, height * 3.3])
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25])
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3])
 
   useLayoutEffect(() => {
       const ctx = gsap.context(() => {
@@ -66,6 +72,17 @@ export default function Home() {
       }, comp)
 
       return () => ctx.revert()
+  },[]);
+
+  useEffect(() => {
+    const lenis = new Lenis()
+
+    function raf(time) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
   },[])
 
 
@@ -74,11 +91,11 @@ export default function Home() {
       <NavBarr/>
       <Cover/>
       <Landing/>
-      <div ref={container} className="gallery bg-blue-600">
+      <div ref={container} className="gallery bg-blue-900">
         <Column images={[images[0], images[1], images[2]]} y={y}/>
-        <Column images={[images[3], images[4], images[5]]}/>
-        <Column images={[images[6], images[7], images[8]]}/>
-        <Column images={[images[9], images[10], images[11]]}/>
+        <Column images={[images[3], images[4], images[5]]} y={y2}/>
+        <Column images={[images[6], images[7], images[8]]} y={y3}/>
+        <Column images={[images[9], images[10], images[11]]} y={y4}/>
       </div>
       <div className="h-screen w-full bg-blue-600"></div>
     </div>
